@@ -139,7 +139,10 @@ ros2 launch standard_bot_bringup demo.launch.py
   - `demo.launch.py` - Main launch file
 
 ## Common Commands
-
+To list all commands in the justfile, you can simply:
+```bash
+just 
+```
 ### Setup (First Time)
 
 ```bash
