@@ -87,7 +87,7 @@ source install/setup.bash
 just launch
 
 # See all available commands
-just list
+just
 ```
 
 ### Manual Commands
