@@ -35,12 +35,22 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
 
 4. **Install Python Dependencies**
 
-   Install to user Python (works with ROS2):
+   Create a virtual environment and install dependencies:
    ```bash
-   pip3 install --user -e .
+   # Create virtual environment
+   python3 -m venv .venv
+   
+   # Activate it
+   source .venv/bin/activate
+   
+   # Install dependencies
+   pip install -e .
+   
+   # Deactivate (we don't keep it activated)
+   deactivate
    ```
    
-   This installs to `~/.local/lib/python3.*/site-packages` which ROS2 can access.
+   **Note:** We don't keep the venv activated. Instead, `setup_workspace.sh` will overlay the venv packages into system Python's path.
 
 
 5. **Setup ROS2 Environment**
@@ -62,7 +72,7 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
    chmod +x setup_workspace.sh
    ```
    
-   Now you can run `source setup_workspace.sh` to source ROS2 and workspace.
+   Now you can run `source setup_workspace.sh` to source ROS2, overlay venv packages, and source workspace.
 
 ## Quick Start
 
@@ -199,9 +209,17 @@ just rebuild
 
 ### Python Module Not Found (e.g., standardbots)
 
-Reinstall Python dependencies:
+Make sure venv is created and packages installed:
 ```bash
-pip3 install --user -e .
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+deactivate
+```
+
+Then source the workspace:
+```bash
+source setup_workspace.sh
 ```
 
 ## Dependencies
