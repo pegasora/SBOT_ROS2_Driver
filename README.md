@@ -23,7 +23,17 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
    sudo apt install just
    ```
 
-3. **Install Python Dependencies**
+3. **Install ROS2 Vision Packages (Required for Camera Support)**
+
+   ```bash
+   # Install cv_bridge and related vision packages
+   sudo apt install ros-jazzy-cv-bridge ros-jazzy-vision-opencv ros-jazzy-image-transport
+   
+   # Install common message packages
+   sudo apt install ros-jazzy-sensor-msgs ros-jazzy-geometry-msgs ros-jazzy-trajectory-msgs ros-jazzy-action-msgs
+   ```
+
+4. **Install Python Dependencies**
 
    **Using pip (standard method):**
    ```bash
@@ -58,7 +68,7 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
    **Note:** If you setup ROS2 to build correctly with setup.py and the xml files, you can just source the install/setup.bash file and that will work file.
 
 
-4. **Setup ROS2 Environment**
+5. **Setup ROS2 Environment**
 
    Add to your `~/.bashrc`:
    ```bash
@@ -225,6 +235,15 @@ pip install -e .
 - ROS2 Jazzy
 - Python 3.10+
 - colcon
+
+### ROS2 Package Dependencies
+- ros-jazzy-cv-bridge (Camera/OpenCV bridge)
+- ros-jazzy-vision-opencv (Vision utilities)
+- ros-jazzy-image-transport (Image transport)
+- ros-jazzy-sensor-msgs (Sensor messages including Image)
+- ros-jazzy-geometry-msgs (Geometry messages)
+- ros-jazzy-trajectory-msgs (Trajectory messages)
+- ros-jazzy-action-msgs (Action messages)
 
 ### Python Dependencies (from pyproject.toml)
 - numpy >= 2.2.5

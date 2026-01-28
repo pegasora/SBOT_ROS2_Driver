@@ -16,6 +16,12 @@ def generate_launch_description():
     ip = "http://10.8.4.11:3000"
     token = "8geqfqu0-qbbkig-ozwgr4-tl2xfj7"
 
+    camera_node = Node(
+        package="sb_controller",
+        executable="standard_bot_camera_feed_node",
+        parameters=[{"robot_url": ip}, {"robot_token": token}, {"robot_name": name}],
+    )
+
     cart_pose_action_server = Node(
         package="sb_controller",
         executable="standard_bot_set_cart_pose_server_node",
@@ -37,5 +43,6 @@ def generate_launch_description():
     ld.add_action(cart_pose_action_server)
     ld.add_action(joint_rot_action_server)
     ld.add_action(on_robot_gripper_action_server)
+    ld.add_action(camera_node)
 
     return ld

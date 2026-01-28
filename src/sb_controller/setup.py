@@ -21,6 +21,7 @@ setup(
     license="Apache License 2.0",
     entry_points={
         "console_scripts": [
+            "standard_bot_camera_feed_node = sb_controller.standard_bot_camera_feed_node:main",
             "standard_bot_status_node = sb_controller.standard_bot_status_node:main",
             "standard_bot_set_cart_pose_server_node = sb_controller.standard_bot_set_cart_pose_server_node:main",
             "standard_bot_set_cart_pose_client_node = sb_controller.standard_bot_set_cart_pose_client_node:main",
