@@ -7,33 +7,11 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
 ### Ubuntu 22.04 (Recommended for Students)
 
 1. **Install ROS2 Jazzy**
-
-   Follow the official installation guide: https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html
-
-   Quick install:
-   ```bash
-   # Set locale
-   sudo apt update && sudo apt install locales
-   sudo locale-gen en_US en_US.UTF-8
-   sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-   export LANG=en_US.UTF-8
-
-   # Setup sources
-   sudo apt install software-properties-common
-   sudo add-apt-repository universe
-   sudo apt update && sudo apt install curl -y
-   sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-
-   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-
-   # Install ROS2
-   sudo apt update
-   sudo apt upgrade
-   sudo apt install ros-jazzy-desktop
-   ```
+ [Link](https://github.com/pegasora/UofI_AdvRobotics)
 
 2. **Install Development Tools**
 
+    You have likely already installed these tools, but if not, you can install them with the following commands:
    ```bash
    # Install colcon build tool
    sudo apt install python3-colcon-common-extensions
@@ -75,6 +53,10 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
    ```
    
    **Note:** If you use uv, make sure to activate the virtual environment before running ROS2 commands.
+
+   # IMPORTANT:
+   **Note:** If you setup ROS2 to build correctly with setup.py and the xml files, you can just source the install/setup.bash file and that will work file.
+
 
 4. **Setup ROS2 Environment**
 
@@ -268,7 +250,9 @@ SBOT_ROS2_Driver/
 
 ## License
 
-TODO: Add license information
+TODO: 
+- Add license information
+- Add camera server node
 
 ## Contributors
 
