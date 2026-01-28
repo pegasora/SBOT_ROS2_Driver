@@ -1,0 +1,14 @@
+[project]
+name = "ros2-ws-sbot"
+version = "0.1.0"
+description = "Ros2 workspace for manufacuring line project"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=2.2.5",
+    "opencv-python>=4.11.0.86",
+    "pandas>=2.2.3",
+    "pycomm3>=1.2.14",
+    "pymodbus>=3.9.2",
+    "standardbots==2.20241120.1",
+]
