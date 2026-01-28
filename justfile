@@ -19,7 +19,7 @@ setup:
     @echo "✓ Setup complete!"
     @echo ""
     @echo "Next steps:"
-    @echo "  1. just env"
+    @echo "  1. source setup_workspace.sh"
     @echo "  2. just build"
     @echo "  3. just launch"
 
