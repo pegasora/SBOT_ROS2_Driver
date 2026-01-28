@@ -134,7 +134,7 @@ ros2 launch ./src/standard_bot_bringup/launch/demo.launch.py
 
 ```bash
 # list available commands
-just list
+just 
 
 # Build workspace
 just build
