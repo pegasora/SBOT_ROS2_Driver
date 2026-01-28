@@ -5,6 +5,24 @@
 default:
     @just --list
 
+# Setup venv and install dependencies (run once)
+setup:
+    @echo "Setting up Python virtual environment..."
+    @if [ -d ".venv" ]; then \
+        echo "✓ .venv already exists"; \
+    else \
+        python3 -m venv .venv && echo "✓ Created .venv"; \
+    fi
+    @echo "Installing Python dependencies..."
+    @bash -c "source .venv/bin/activate && pip install -e . && deactivate"
+    @echo ""
+    @echo "✓ Setup complete!"
+    @echo ""
+    @echo "Next steps:"
+    @echo "  1. just env"
+    @echo "  2. just build"
+    @echo "  3. just launch"
+
 # Clean build artifacts
 clean:
     @echo "Cleaning build artifacts..."
@@ -17,21 +35,12 @@ build:
     colcon build --symlink-install
     @echo ""
     @echo "✓ Build complete!"
-    @echo "To use the workspace, run: source install/setup.bash"
-
-# Build with verbose output for debugging
-build-verbose:
-    @echo "Building ROS2 workspace (verbose)..."
-    colcon build --symlink-install --event-handlers console_direct+
+    @echo "To use the workspace, run:" 
+    @echo " or you can manually run: source install/setup.bash"
+    
 
 # Clean and rebuild everything
 rebuild: clean build
-
-# Run tests
-test:
-    @echo "Running tests..."
-    colcon test
-    colcon test-result --verbose
 
 # Launch the StandardBot demo
 launch *ARGS:
@@ -42,14 +51,6 @@ launch *ARGS:
 source:
     @echo "Run this command to source the workspace:"
     @echo "  source install/setup.bash"
-
-# List all ROS2 nodes in the workspace
-list-nodes:
-    @bash -c "source install/setup.bash && ros2 pkg executables sb_controller"
-
-# List all ROS2 packages in the workspace
-list-packages:
-    @bash -c "source install/setup.bash && ros2 pkg list | grep -E '(action_interfaces|sbot_interfaces|sb_controller|standard_bot_bringup)'"
 
 # Check ROS2 environment
 check-env:
@@ -72,16 +73,6 @@ install-deps-uv:
     @which uv > /dev/null || (echo "✗ uv not found. Install with: curl -LsSf https://astral.sh/uv/install.sh | sh" && exit 1)
     uv pip install -e .
 
-# Format Python code (requires black)
-format:
-    @echo "Formatting Python code..."
-    black src/sb_controller/
-
-# Lint Python code (requires flake8)
-lint:
-    @echo "Linting Python code..."
-    flake8 src/sb_controller/
-
 # Show workspace information
 info:
     @echo "StandardBot ROS2 Driver Workspace"
@@ -93,6 +84,7 @@ info:
     @echo "  - standard_bot_bringup (Launch files)"
     @echo ""
     @echo "Quick Start:"
-    @echo "  1. just build"
-    @echo "  2. source install/setup.bash"
-    @echo "  3. just launch"
+    @echo "  1. just setup"
+    @echo "  2. just env      (or: source setup_workspace.sh)"
+    @echo "  3. just build"
+    @echo "  4. just launch"
