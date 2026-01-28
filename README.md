@@ -4,7 +4,7 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
 
 ## Prerequisites
 
-### Ubuntu 22.04 (Recommended for Students)
+### Ubuntu 24.04 (Recommended for Students)
 
 1. **Install ROS2 Jazzy**
  [Link](https://github.com/pegasora/UofI_AdvRobotics)
@@ -35,7 +35,12 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
 
 4. **Install Python Dependencies**
 
-   Create a virtual environment and install dependencies:
+   **Option A: Using just (recommended)**
+   ```bash
+   just setup
+   ```
+   
+   **Option B: Manual setup**
    ```bash
    # Create virtual environment
    python3 -m venv .venv
@@ -50,10 +55,11 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
    deactivate
    ```
    
-   **Note:** We don't keep the venv activated. Instead, `setup_workspace.sh` will overlay the venv packages into system Python's path.
+   **How it works:** The venv is NOT activated during runtime. Instead, `setup_workspace.sh` overlays the venv packages into system Python's PYTHONPATH so ROS2 nodes can import them.
 
 
 5. **Setup ROS2 Environment**
+   You have likely already done this, if so, skip to step 6.
 
    Add to your `~/.bashrc`:
    ```bash
@@ -77,9 +83,12 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
 ## Quick Start
 
 ### Using Just (Recommended)
-
+You only need to run the setup command once. For the build command, you only need to run it once per changes made.
 ```bash
-# Setup environment (do this FIRST!)
+# First time setup (only once)
+just setup
+
+# Source the workspace (every new terminal)
 source setup_workspace.sh
 
 # Build the workspace
@@ -89,10 +98,16 @@ just build
 just launch
 ```
 
-### Manual Commands
+### Manual Commands (without just)
 
 ```bash
-# Setup environment (do this FIRST!)
+# First time setup
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+deactivate
+
+# Every session
 source setup_workspace.sh
 
 # Build
@@ -125,12 +140,19 @@ ros2 launch standard_bot_bringup demo.launch.py
 
 ## Common Commands
 
+### Setup (First Time)
+
+```bash
+# Setup venv and install dependencies (once)
+just setup
+
+# Activate environment (every new terminal)
+source setup_workspace.sh  # Run this
+```
+
 ### Building
 
 ```bash
-# list available commands
-just 
-
 # Build workspace
 just build
 
@@ -139,9 +161,6 @@ just clean
 
 # Clean and rebuild
 just rebuild
-
-# Build with verbose output
-just build-verbose
 ```
 
 ### Running
@@ -151,36 +170,17 @@ just build-verbose
 just launch
 
 # Launch with arguments
-just launch robot_ip:=192.168.1.100
+just launch robot_ip:=xxx.xxx.xxx.xxx
 
 # Check ROS2 environment
 just check-env
-
-# List installed packages
-just list-packages
-
-# List available nodes
-just list-nodes
-```
-
-### Testing
-
-```bash
-# Run tests
-just test
 ```
 
 ### Development
 
 ```bash
-# Format code
-just format
-
-# Lint code
-just lint
-
-# Install dependencies
-just install-deps
+# Setup environment
+just setup  # First time only
 ```
 
 ## Troubleshooting
@@ -209,17 +209,19 @@ just rebuild
 
 ### Python Module Not Found (e.g., standardbots)
 
-Make sure venv is created and packages installed:
+Run the setup command:
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e .
-deactivate
+just setup
 ```
 
 Then source the workspace:
 ```bash
 source setup_workspace.sh
+```
+
+If the problem persists, manually verify:
+```bash
+ls .venv/lib/python*/site-packages/ | grep standardbots
 ```
 
 ## Dependencies
@@ -264,9 +266,8 @@ SBOT_ROS2_Driver/
 
 TODO: 
 - Add license information
-- Add camera server node
 
 ## Contributors
 
-- Course Staff
-- Students
+- Dawson Burgess
+- Sarah Davis (Original Standardbot ROS2 Driver)
