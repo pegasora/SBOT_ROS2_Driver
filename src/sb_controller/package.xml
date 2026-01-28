@@ -19,6 +19,7 @@
   <depend>numpy</depend>
   <depend>base64</depend>
   <depend>standard_bot_status_node</depend>
+  <depend>standard_bot_camera_feed_node</depend>
   <depend>action_msgs</depend>
   <!-- Interfaces  -->
   <depend>sbot_interfaces</depend>
