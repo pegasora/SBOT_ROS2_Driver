@@ -35,37 +35,19 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
 
 4. **Install Python Dependencies**
 
-   **Using pip (standard method):**
+   Create a virtual environment and install dependencies:
    ```bash
-   # Install dependencies from pyproject.toml
-   pip install -e .
+   # Create virtual environment
+   python3 -m venv .venv
    
-   # Or manually:
-   pip install numpy>=2.2.5 opencv-python>=4.11.0.86 pandas>=2.2.3 \
-               pycomm3>=1.2.14 pymodbus>=3.9.2 standardbots==2.20241120.1
-   ```
-
-   **Using uv (faster alternative):**
-   
-   [uv](https://github.com/astral-sh/uv) is a fast Python package installer and resolver, written in Rust.
-   
-   ```bash
-   # Install uv
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   
-   # Install dependencies using uv
-   uv pip install -e .
-   
-   # Or create and sync a virtual environment
-   uv venv
+   # Activate it
    source .venv/bin/activate
-   uv pip sync uv.lock  # Uses the lockfile for reproducible installs
+   
+   # Install dependencies
+   pip install -e .
    ```
    
-   **Note:** If you use uv, make sure to activate the virtual environment before running ROS2 commands.
-
-   # IMPORTANT:
-   **Note:** If you setup ROS2 to build correctly with setup.py and the xml files, you can just source the install/setup.bash file and that will work file.
+   **IMPORTANT:** You must activate the virtual environment before running ROS2 commands.
 
 
 5. **Setup ROS2 Environment**
@@ -80,18 +62,25 @@ ROS2 workspace for controlling StandardBot robots in a manufacturing line.
    source ~/.bashrc
    ```
 
-   or you will have to run this on terminal init.
+6. **Create Workspace Setup Script**
+
+   This script sources everything at once:
+   ```bash
+   chmod +x setup_workspace.sh
+   ```
+   
+   Now you can run `source setup_workspace.sh` to activate ROS2, venv, and workspace all at once.
 
 ## Quick Start
 
 ### Using Just (Recommended)
 
 ```bash
+# Setup environment (do this FIRST, every time!)
+source setup_workspace.sh
+
 # Build the workspace
 just build
-
-# Source the workspace (run the printed command)
-source install/setup.bash
 
 # Launch the robot drivers
 just launch
@@ -103,18 +92,14 @@ just list
 ### Manual Commands
 
 ```bash
+# Setup environment (do this FIRST!)
+source setup_workspace.sh
+
 # Build
 colcon build --symlink-install
 
-# Source workspace
-source install/setup.bash
-
 # Launch
 ros2 launch standard_bot_bringup demo.launch.py
-```
-or call the launch file directly:
-```bash
-ros2 launch ./src/standard_bot_bringup/launch/demo.launch.py
 ```
 
 ## Workspace Packages
@@ -222,10 +207,16 @@ Try cleaning and rebuilding:
 just rebuild
 ```
 
-### Python Module Not Found
+### Python Module Not Found (e.g., standardbots)
 
-Install the dependencies:
+Make sure venv is activated:
 ```bash
+source setup_workspace.sh
+```
+
+If still not working, reinstall:
+```bash
+source .venv/bin/activate
 pip install -e .
 ```
 
